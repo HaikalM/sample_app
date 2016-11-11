@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.0.0.1'
+gem 'bcrypt',         '3.1.11'
 gem 'bootstrap-sass', '3.3.6'
 # Use sqlite3 as the database for Active Record
 
@@ -44,12 +45,14 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '1.7.2'
   gem 'spring-watcher-listen', '2.0.0'
+  gem 'guard',                    '2.13.0'
+  gem 'guard-livereload', '~> 2.5', require: false
 end
 
 group :test do
   gem 'rails-controller-testing', '0.1.1'
   gem 'minitest-reporters',       '1.1.9'
-  gem 'guard',                    '2.13.0'
+  
   gem 'guard-minitest',           '2.4.4'
 end
 
