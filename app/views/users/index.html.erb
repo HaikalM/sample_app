@@ -1,7 +1,7 @@
 <% provide(:title, 'All User')%>
 <h1>All Users</h1>
 
-<%= will_paginate %>
+<%= will_paginate @users, :previous_label => 'Sebelumnya', :next_label => 'Selanjutnya' %>
 
 <!-- <ul class="users">
 	<%# @users.each do |user| %>
@@ -12,4 +12,4 @@
 	<%= render @users %>
 </ul>
 
-<%= will_paginate %>
+<%= will_paginate @users, :previous_label => 'Sebelumnya', :next_label => 'Selanjutnya' %>
