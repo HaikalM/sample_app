@@ -27,7 +27,10 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true #false
+  config.action_mailer.delivery_method = :test
+  host = 'localhost:3000' #CLOUD IDE(haikal-test-3.herokuapp.com) #Local Server(localhost:3000) #don't use this literally; use your local dev host instead 
+  config.action_mailer.default_url_options = { host: host, protocol: 'http' } #protocol: http / https
 
   config.action_mailer.perform_caching = false
 

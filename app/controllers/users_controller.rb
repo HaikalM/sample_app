@@ -5,11 +5,13 @@ class UsersController < ApplicationController
 
   def index
     # @users = User.all
-    @users = User.paginate(page: params[:page], per_page: 10)
+    # @users = User.paginate(page: params[:page], per_page: 10)
+    @users = User.where(activated: true).paginate(page: params[:page], per_page: 10)
   end
 
   def show
   	@user = User.find(params[:id])
+    redirect_to root_url and return unless @user.activated == true
   	# debugger
   end
 
@@ -18,17 +20,17 @@ class UsersController < ApplicationController
   end
 
   def create
-  	@user = User.new(user_params)
-  	if @user.save
-      # redirect_to user_url(@user)
-      log_in @user
-      flash[:success] = "Welcome To The Sample App!"
-      redirect_to @user
-  	else
-  		render 'new'
-  	end
-# My comment 
+    @user = User.new(user_params)
+    if @user.save
+      @user.send_activation_email
+      UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Cek email untuk aktifasi akun"
+      redirect_to root_url
+    else
+      render 'new'
+    end
   end
+# My comment 
 
   def edit
     @user = User.find(params[:id])
@@ -55,7 +57,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-  	params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  	params.require(:user).permit(:name, :email, :password, :password_confirmation, :activated, :activated_at)
   end
 
   def logged_in_user
