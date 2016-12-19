@@ -31,6 +31,15 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
   host = 'localhost:3000' #CLOUD IDE(haikal-test-3.herokuapp.com) #Local Server(localhost:3000) #don't use this literally; use your local dev host instead 
   config.action_mailer.default_url_options = { host: host, protocol: 'http' } #protocol: http / https
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['maulanahaikal'],
+    :password       => ENV['rafli007'],
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
+  }
 
   config.action_mailer.perform_caching = false
 
